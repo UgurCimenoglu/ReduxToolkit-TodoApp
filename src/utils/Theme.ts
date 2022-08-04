@@ -10,6 +10,11 @@ export const lightTheme = createTheme({
       primary: "#11111",
     },
   },
+  typography: {
+    allVariants: {
+      color: "#11111",
+    },
+  },
 });
 
 export const darkTheme = createTheme({
@@ -20,6 +25,11 @@ export const darkTheme = createTheme({
     },
     text: {
       primary: "#fff",
+    },
+  },
+  typography: {
+    allVariants: {
+      color: "#fff",
     },
   },
 });

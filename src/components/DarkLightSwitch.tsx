@@ -62,7 +62,7 @@ const DarkLightSwitch = () => {
       <FormControlLabel
         checked={Theme.darkTheme}
         onClick={handleClick}
-        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+        control={<MaterialUISwitch sx={{ m: 1 }} />}
         label={undefined}
       />
     </FormGroup>

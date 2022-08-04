@@ -9,21 +9,28 @@ import MenuIcon from "@mui/icons-material/Menu";
 import DarkLightSwitch from "../components/DarkLightSwitch";
 import { AccountCircle } from "@mui/icons-material";
 import { Menu, MenuItem } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../store/Hooks";
+import { logIn, logOut } from "../store/slice/Auth";
 
 export default function Navbar() {
-  const [auth, setAuth] = React.useState(true);
+  const { User } = useAppSelector((state) => state.Auth);
+  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
-
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const login = () => {
+    dispatch(logIn({ id: 1, name: "Ugur Cimenoglu" }));
+  };
+
+  const logout = () => {
+    dispatch(logOut());
+    handleClose();
   };
 
   return (
@@ -42,36 +49,42 @@ export default function Navbar() {
             News
           </Typography>
 
-          <div>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>LogOut</MenuItem>
-            </Menu>
-          </div>
+          {User ? (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={logout}>LogOut</MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <Button color="inherit" onClick={login}>
+              Login
+            </Button>
+          )}
 
           <DarkLightSwitch />
         </Toolbar>

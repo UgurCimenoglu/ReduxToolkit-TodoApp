@@ -6,11 +6,11 @@ type UserData = {
   name: string;
 };
 interface IUser {
-  User: UserData | null;
+  User: UserData | boolean;
 }
 
 const initialState: IUser = {
-  User: null,
+  User: false,
 };
 
 export const AuthSlice = createSlice({
@@ -21,11 +21,10 @@ export const AuthSlice = createSlice({
       state.User = action.payload;
     },
     logOut: (state) => {
-      state.User = null;
+      state.User = false;
     },
   },
 });
 
 export const { logIn, logOut } = AuthSlice.actions;
 export default AuthSlice.reducer;
- 
